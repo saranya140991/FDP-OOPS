@@ -1,0 +1,35 @@
+package saranya;
+
+import java.io.*;
+import java.net.*;
+
+public class SimpleServer {
+    public static void main(String[] args) {
+        try {
+            // Step 1: Create a ServerSocket to listen on port 5000
+            ServerSocket serverSocket = new ServerSocket(5000);
+            System.out.println("✅ Server started. Waiting for client...");
+
+            // Step 2: Accept client connection
+            Socket socket = serverSocket.accept();
+            System.out.println("✅ Client connected!");
+
+            // Step 3: Set up input and output streams
+            BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
+
+            // Step 4: Read message from client and respond
+            String clientMessage = input.readLine();
+            System.out.println("📩 Received from client: " + clientMessage);
+            output.println("Server received: " + clientMessage);
+
+            // Step 5: Close connections
+            socket.close();
+            serverSocket.close();
+            System.out.println("✅ Server closed.");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
