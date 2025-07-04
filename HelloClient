@@ -1,0 +1,12 @@
+import java.rmi.*;
+
+public class HelloClient {
+    public static void main(String[] args) {
+        try {
+            Remotehello stub = (Remotehello) Naming.lookup("rmi://localhost/Hello");
+            System.out.println(stub.sayHello("Client 1"));
+        } catch (Exception e) {
+            System.out.println("Client exception: " + e.toString());
+        }
+    }
+}
